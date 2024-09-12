@@ -1,0 +1,88 @@
+{% extends "website/master.html" %}
+
+{% load static %}
+
+    {% block title %} Home Page {% endblock %}
+
+    {% block body %}
+        <img id="b-img" rel="me!" src="{% static 'website/images/profile.png' %}">
+        <section id="introSection">
+            <div id="bio">
+                <h1 id="name"> Hey, I'm Anya </h1>
+                <h3 style="font-size: smaller;"><i>Computer Science Master's student at Northwestern University with a BS in Education and Social Policy</i></h3>
+            </div>
+        </section>
+        <section id="projectsSection">
+            <div class="head" id="projectsTitle">
+                <h1>Featured Projects</h1>
+            </div>
+            <div id="projectSlides" class="col carousel carousel-dark slide w-400">
+                <div class="carousel-indicators">
+                    {% for project in projects %}
+                        {% if forloop.first %}
+                            <button type="button" data-bs-target="#projectSlides" data-bs-slide-to={{forloop.counter0}} class="active" aria-current="true" aria-label="Project {{forloop.counter}}"></button>
+                        {% else %}
+                            <button type="button" data-bs-target="#projectSlides" data-bs-slide-to={{forloop.counter0}} aria-label="Project {{forloop.counter}}"></button>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="carousel-inner">
+                    {% for project in projects %}
+                        {% if forloop.first %}
+                            <div class="carousel-item active">
+                        {% else %}
+                            <div class="carousel-item">
+                        {% endif %}
+                                    <a class="deets"
+                                       rel="{{project.title}} Repository"
+                                        href="//{{project.site}}"> 
+                                        <img class="p-img" src="\static\website\images\{{project.title}}.png">                                       <h1>{{project.title}}</h1>
+                                        <p>{{project.desc}}</p>
+                                    </a>
+                            </div>
+                        {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#projectSlides" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true" style="color: black !important;"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#projectSlides" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+            </div>
+        </section>
+        <section id="aboutSection" class="hidden" style="height: 42vw;">
+            <div class="head">
+                <h1>About Me</h1>
+                <a>My resume in a different format</a>
+            </div>
+            <div class="row">
+                <div class="col">
+                    Education
+                </div>
+                <div class="col">
+                    Activities
+                </div>
+                <div class="col">
+                    Work Experience
+                </div>
+            </div>
+        </section>
+
+    <script>
+        window.onscroll = function() {
+            if(window.scrollY >= 273){
+                document.getElementById("menuHeader").classList.add("scrolled");
+                document.getElementById("contactButton").classList.remove("btn-secondary");
+                document.getElementById("contactButton").classList.add("btn-light");
+            }
+            else{
+                
+                document.getElementById("menuHeader").classList.remove("scrolled");
+                document.getElementById("contactButton").classList.add("btn-secondary");
+                document.getElementById("contactButton").classList.remove("btn-light");
+            }
+        }
+    </script>
+    {% endblock %}
